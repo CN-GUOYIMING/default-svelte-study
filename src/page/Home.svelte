@@ -1,87 +1,45 @@
 <script>
   // Dependencies
   import { onMount } from 'svelte';
-  import { dataList } from '../store';
+  import { 
+    DEFAULT_PAGE, 
+    ONE_PAGE_LINES,
+    dataList, 
+    isClearTerms
+  } from '../store';
   // Components
   import Filter from '../component/Filter.svelte';
   import Pagination from '../component/Pagination.svelte';
 
-  // Const
-  const DEFAULT_PAGE = 1; // デフォルトに表示されるページ番号
-  const ONE_PAGE_LINES = 4; // 一ページに表示される件数
-
-  let currentPage = DEFAULT_PAGE;
-  $: pageSlices = filterData($dataList, { codeRange, targetFlag });
-  let codeRange = { begin: '', end: ''}
-  let targetFlag = '';
+  let currentPage = $DEFAULT_PAGE;
+  let pageSlices = [];
 
   onMount(async () => {
     // NOTE: 初期データを取得する API はここでコール。
     const response = await fetch('/data.json');
     const data = await response.json()
     
-    dataList.update(self => {
-      return data;
-    })
+    dataList.set(data);
   });
 
   /** Functions*/
-  /**
-   * データを濾過する。
-   * @param orignalData
-   * @param filterTerms
-   * 
-   * @returns {Array}
-   */
-  const filterData = (orignalData, { codeRange, targetFlag }) => {
-    let slices = [];
-    let temporary = orignalData;
-
-    temporary = filterDataByCode(temporary, codeRange);
-    temporary = filterDataByFlag(temporary, targetFlag);
-    slices = slicePage(temporary);
-    
-    return slices;
-  };
-
-  const filterDataByCode = (
-    data, codeRange = { begin: '', end: '' }
-  ) => {
-    if (!codeRange.begin || !codeRange.end) return data;
-
-    // NOTE: コードに応じて比較方法が変わることがある。
-    return data.filter(
-      item => {
-        const begin = codeRange.begin?.toUpperCase();
-        const end = codeRange.end?.toUpperCase();
-
-        if (
-          begin.length !== item.code.length || 
-          end.length !== item.code.length
-        ) return;
-
-        return begin <= item.code && item.code <=end
-      }
-    )
-  };
-
-  const filterDataByFlag = (data, flag) => {
-    if (!flag) return data;
-    return data.filter(item => item.flag.includes(flag));
-  };
+  const handleFilter = (event) => {
+    const { filteredData } = event.detail;
+    pageSlices = slicePage(filteredData);
+  }
 
   const slicePage = (data) => {
     let slices = [];
 
     // 総データの件数をページ毎の表示件数で割ってページ数を取得
     const pageNumbers = data.length 
-      ? Math.ceil(data.length / ONE_PAGE_LINES)
-      : DEFAULT_PAGE
+      ? Math.ceil(data.length / $ONE_PAGE_LINES)
+      : $DEFAULT_PAGE
     
     // ページ数を回数にループを行い、ページ毎の表示データを切り分ける
     for ( let times = 1; times <= pageNumbers; times++ ) {
-      const startIndex = (times - 1) * ONE_PAGE_LINES;
-      const endIndex = startIndex + ONE_PAGE_LINES;
+      const startIndex = (times - 1) * $ONE_PAGE_LINES;
+      const endIndex = startIndex + $ONE_PAGE_LINES;
 
       slices = [...slices, data.slice(startIndex, endIndex)];
     }
@@ -90,19 +48,18 @@
   }
 
   const clearTerms = () => {
-    codeRange = {};
-    targetFlag = '';
+    isClearTerms.set(true);
   };
 
   const updateData = async () => {
     // NOTE: 更新 API はここでコール。
-    console.log(dataList);
+    console.log($dataList);
   };
 </script>
 
 <main>
   <!-- フィルター -->
-  <Filter bind:codeRange bind:targetFlag />
+  <Filter on:filter={handleFilter}/>
 
   <!-- 表示リスト -->
   <section class="content-box" style="margin-top: 30px;">
@@ -115,19 +72,21 @@
         <div class="ceil_header ceil_end">〇〇フラグ</div>
       </div>
 
-      <div class="table_items_container">
-        {#each pageSlices[currentPage - 1] as item, index(item.code)}
-          <div class="table_item_container">
-            <div class="ceil_item">{item.code}</div>
-            <div class="ceil_item">{item.name}</div>
-            
-            <div class="ceil_item ceil_end">
-              <input type="text" bind:value={item.flag}>
+      {#if pageSlices.length > 0}
+        <div class="table_items_container">
+          {#each pageSlices[currentPage - 1] as item (item.code)}
+            <div class="table_item_container">
+              <div class="ceil_item">{item.code}</div>
+              <div class="ceil_item">{item.name}</div>
+              
+              <div class="ceil_item ceil_end">
+                <input type="text" bind:value={item.flag}>
+              </div>
             </div>
-          </div>
-        {/each}
-      </div>
-    </article>
+          {/each}
+        </div>
+      {/if}    
+      </article>
   </section>
 
   <!-- ページ切り替え -->
@@ -139,7 +98,7 @@
 
   <!-- ボタン -->
   <div class="button_container">
-    <button type="button" on:click={() => clearTerms()}>クリア</button>
+    <button type="button" on:click={clearTerms}>クリア</button>
     <button type="button" on:click={updateData}>保存</button>
   </div>
 </main>
