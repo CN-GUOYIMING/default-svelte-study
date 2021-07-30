@@ -3,9 +3,11 @@
   import { dataList, isClearTerms } from '../store';
   import Card from './Card.svelte';
 
+  const dispatch = createEventDispatcher();
+  
   let codeRange = [];
   let targetFlag = '';
-  const dispatch = createEventDispatcher();
+  
   $: filterData($dataList, { codeRange, targetFlag });
   
   $: if ($isClearTerms) {
