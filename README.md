@@ -9,6 +9,9 @@ npx degit sveltejs/template app-name
 # プロジェクトディレクトリに入る
 cd app-name
 
+# TypeScript を追加する
+node scripts/setupTypeScript.js
+
 # 依存をインストール
 # 依存定義ファイル：app-name/package.json
 npm install
@@ -25,16 +28,33 @@ npm run dev
 
 **注：本サンプルでは既にインストール済み。**
 
+### ルーターの依存をインストール
+
 ```shell
 npm install svelte-spa-router
 ```
 
-- [svelte-spa-router document](https://github.com/ItalyPaleAle/svelte-spa-router)
+### ルーターの使用方法
+
+- 詳細は [svelte-spa-router document](https://github.com/ItalyPaleAle/svelte-spa-router) で参照してください。
+- このプロジェクトでの使い方：
+
+    ```typescript
+    // src/router/routes/index.ts
+
+    // 1. ここで画面コンポーネントを導入
+    import Home from '../views/Home.svelte'
+    import RouteTest from '../views/RouteTest.svelte'
+
+    export const routes = {
+      // 2. ここでルーターを設置
+      // '/url': component
+      '/home': Home,
+      '/routetest': RouteTest,
+    }
+
+    // 3. ブラウザで以下の様にアクセス
+    // http://ローカルホスト/#/url
+    ```
 
 ---
-
-## テーマ
-
-- [inspinia_admin-v2.8 preview](http://webapplayers.com/inspinia_admin-v2.8/css_animation.html)
-
-既に導入済みなので、使う時は preview 画面に入り、検証で要素の class を参照してください。
