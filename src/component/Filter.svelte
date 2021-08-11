@@ -20,8 +20,6 @@
    * データを濾過する。
    * @param orignalData
    * @param filterTerms
-   * 
-   * @returns {Array}
    */
    const filterData = (orignalData, { codeRange, targetFlag }) => {
     isClearTerms.set(false);
@@ -63,7 +61,7 @@
 
 <Card title='検索条件'>
   <div class="item-container">
-    <div class="label">大分類コード</div>
+    <div class="filter-label">大分類コード</div>
     
     <div class="contents-container">
       <input type="text" bind:value={codeRange.begin}>
@@ -73,7 +71,7 @@
   </div>
 
   <div class="item-container" style="margin-top: 10px;">
-    <div class="label">〇〇フラグ</div>
+    <div class="filter-label">〇〇フラグ</div>
     
     <div class="contents-container">
       <input type="text" bind:value={targetFlag}>
@@ -83,7 +81,7 @@
 
 <style>
   .item-container { display: flex; }
-  .label { flex: 2 }
+  .filter-label { flex: 2 }
   .contents-container { flex: 3 }
   .wave { margin: 0 20px; }
   input { width: 70px; }

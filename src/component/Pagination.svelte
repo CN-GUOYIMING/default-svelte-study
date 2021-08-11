@@ -1,35 +1,22 @@
-<script>
-  const DEFAULT_PAGE = 1; // デフォルトに表示されるページ番号
+<script lang="ts">
+  import { DEFAULT_PAGE } from '../store'
 
-  export let pageNumbers;
-  export let currentPage = DEFAULT_PAGE;
-  export let style;
+  export let pageNumbers: number
+  export let currentPage: number = $DEFAULT_PAGE
+  export let style: string = ''
+
+  const handlePrevious = () =>
+    (currentPage = currentPage - 1 > 0 ? currentPage - 1 : $DEFAULT_PAGE)
+
+  const handleNext = () =>
+    (currentPage =
+      currentPage + 1 < pageNumbers ? currentPage + 1 : pageNumbers)
 </script>
 
 <article class="main-container" {style}>
-  <button 
-    type="button" 
-    on:click={
-      () => currentPage = currentPage - 1 > 0 
-        ? currentPage - 1 
-        : DEFAULT_PAGE
-    }
-  >
-    {'<'}
-  </button>
-  
+  <button type="button" on:click={handlePrevious}>{'<'} </button>
   <span class="current-page">{currentPage}</span>
-  
-  <button 
-    type="button"
-    on:click={
-      () => currentPage = currentPage + 1 < pageNumbers 
-        ? currentPage + 1 
-        : pageNumbers
-    }
-  >
-    {'>'}
-  </button>
+  <button type="button" on:click={handleNext}>{'>'} </button>
 </article>
 
 <style>

@@ -1,9 +1,10 @@
 <script>
   export let title;
-  export let contentStyle;
+  export let containerStyle = '';
+  export let contentStyle = '';
 </script>
 
-<section>
+<section style={containerStyle}>
   <div class="title">{title}</div>
   
   <article style={contentStyle}>
