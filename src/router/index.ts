@@ -3,7 +3,7 @@ import RouteTest from '../views/RouteTest.svelte'
 import TailWindTest from '../views/TailWindTest.svelte'
 
 export const routes = {
-  '/home': Home,
+  '/': Home,
   '/routetest': RouteTest,
   '/tailwindtest': TailWindTest,
 }

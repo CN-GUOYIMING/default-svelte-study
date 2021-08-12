@@ -3,7 +3,7 @@
 
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "./public/build"
+    "outDir": "./ts-out"
   },
 
   "include": ["src/**/*", "types/**/*"],

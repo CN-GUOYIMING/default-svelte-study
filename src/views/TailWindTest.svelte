@@ -1,22 +1,27 @@
-<nav>
-  <div>
-    <div>
-      <a href="#">APP LOGO</a>
+<nav class="bg-blue-900 shadow-lg">
+  <div class="container mx-auto">
+    <div class="sm:flex">
+      <!-- svelte-ignore a11y-invalid-attribute -->
+      <a href="#" class="text-white text-3xl font-bold p-3">APP LOGO</a>
 
       <!-- Menus -->
-      <div>
-        <ul>
-          <li>
-            <a href="#">About</a>
+      <div class="ml-55 mt-4">
+        <ul class="text-white sm:self-center text-xl">
+          <li class="sm:inline-block">
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" class="p-3 hover:text-red-900">About</a>
           </li>
-          <li>
-            <a href="#">Services</a>
+          <li class="sm:inline-block">
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" class="p-3 hover:text-red-900">Services</a>
           </li>
-          <li>
-            <a href="#">Blog</a>
+          <li class="sm:inline-block">
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" class="p-3 hover:text-red-900">Blog</a>
           </li>
-          <li>
-            <a href="#">Contact</a>
+          <li class="sm:inline-block">
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="#" class="p-3 hover:text-red-900">Contact</a>
           </li>
         </ul>
       </div>
