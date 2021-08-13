@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // Dependencies
   import { onMount } from 'svelte'
   import {
@@ -8,10 +8,10 @@
     isClearTerms,
   } from '../store'
   // Components
-  import Filter from '../component/Filter.svelte'
-  import ShowList from '../component/ShowList.svelte'
-  import Pagination from '../component/Pagination.svelte'
-  import Button from '../component/Button.svelte'
+  import Filter from '../component/views_components/home/Filter.svelte'
+  import ShowList from '../component/views_components/home/ShowList.svelte'
+  import Pagination from '../component/views_components/home/Pagination.svelte'
+  import Button from '../component/common/Button.svelte'
 
   let currentPage = $DEFAULT_PAGE
   let pageSlices = []
@@ -59,37 +59,27 @@
   }
 </script>
 
-<div id="wrapper">
-  <nav class="navbar-default navbar-static-side" role="navigation" />
+<main id="main-container" class="p-5 h-full bg-gray-200">
+  <!-- フィルター -->
+  <Filter on:filter={handleFilter} />
+  <!-- 表示リスト -->
+  <ShowList bind:pageSlices {currentPage} />
 
-  <div id="page-wrapper" class="gray-bg dashbard-1" style="min-height: 760px;">
-    <div class="contents-container">
-      <!-- フィルター -->
-      <Filter on:filter={handleFilter} />
-      <!-- 表示リスト -->
-      <ShowList bind:pageSlices {currentPage} />
+  <!-- ページ切り替え -->
+  <Pagination
+    pageNumbers={pageSlices.length}
+    bind:currentPage
+    style={'margin-top: 30px;'}
+  />
 
-      <!-- ページ切り替え -->
-      <Pagination
-        pageNumbers={pageSlices.length}
-        bind:currentPage
-        style={'margin-top: 30px;'}
-      />
-
-      <!-- ボタン -->
-      <div class="button_container">
-        <Button title="クリア" on:click={clearTerms} />
-        <Button title="保存" on:click={updateData} />
-      </div>
-    </div>
+  <!-- ボタン -->
+  <div class="button_container">
+    <Button title="クリア" on:click={clearTerms} />
+    <Button title="保存" on:click={updateData} />
   </div>
-</div>
+</main>
 
 <style>
-  .contents-container {
-    display: flex;
-    flex-direction: column;
-  }
   .button_container {
     align-self: center;
     display: flex;

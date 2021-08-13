@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Card from '../component/Card.svelte'
-  import type { Food } from '../../types/products'
+  import Card from './HomeCard.svelte'
+  import type { Food } from '../../../../types/views_types/home'
 
   export let pageSlices: Array<Array<Food>>
   export let currentPage: number

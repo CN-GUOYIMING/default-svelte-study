@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DEFAULT_PAGE } from '../store'
+  import { DEFAULT_PAGE } from '../../../store'
 
   export let pageNumbers: number
   export let currentPage: number = $DEFAULT_PAGE

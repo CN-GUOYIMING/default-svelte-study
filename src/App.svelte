@@ -3,16 +3,15 @@
   import { routes } from './router'
 </script>
 
-<Router {routes} /> 
+<Router {routes} />
 
 <style global lang="postcss">
   @tailwind base;
   @tailwind components;
 
-  @layer components {
-    .btn {
-      @apply px-4 py-2 bg-blue-600 text-white rounded;
-    }
+  .my-bg {
+    background: black;
+    /* @apply bg-black; */
   }
 
   @tailwind utilities;
