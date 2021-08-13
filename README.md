@@ -58,3 +58,95 @@ npm install svelte-spa-router
     ```
 
 ---
+
+## Tailwindcss
+
+### Tailwindcss のダウンロード
+
+```shell
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+```
+
+### Tailwindcss の導入方法
+
+二種類存在する。
+
+#### Tailwindcss の導入方法一
+
+rollup.config.js（ webpack と似たパッキングツール） ファイル内に tailwind を設置する。  
+『[How to Use Tailwind on a Svelte Site](https://css-tricks.com/how-to-use-tailwind-on-a-svelte-site/)』で詳細を確認できる。
+
+1. PostCSS 及び Tailwind 処理パッケージを導入。
+
+     ```javascript
+     // rollup.config.js
+     import sveltePreprocess from "svelte-preprocess";
+     ```
+
+2. プラグインを導入する。
+
+     ```javascript
+     // rollup.config.js
+     preprocess: sveltePreprocess({
+       sourceMap: !production,
+       postcss: {
+         plugins: [
+         require("tailwindcss"), 
+         require("autoprefixer"),
+         ],
+       },
+     }),
+     ```
+
+3. App.svelte ファイルに注入する。
+
+     ```svelte
+     <!-- App.svelte -->
+     <style global lang="postcss">
+       @tailwind base;
+       @tailwind components;
+       @tailwind utilities;
+     </style>
+     ```
+
+---
+
+#### Tailwindcss の導入方法二
+
+『[tailwindcss document](https://tailwindcss.com/docs/installation#using-tailwind-cli)』で詳細を確認できる。
+
+PostCSS で 最終的に出力される CSS にコンパイル。
+
+1. css ファイルを置く場所に `tailwind.css` を作成する。
+   - 使用上どのディレクトリでも構わない。
+   - ファイル名も任意に変更できる。
+
+     ```css
+     /* ./src/assets/tailwind.css */
+     @tailwind base;
+     @tailwind components;
+     @tailwind utilities;
+     ```
+
+2. tailwind の出力ファイルを単独にビルド。
+
+   ```shell
+   # どのファイル名も自由
+   # --watch で変更を監視することができる
+   npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css
+   ```
+
+3. html フィアルで出力された方の tailwind.css を導入
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <!-- ... -->
+       <link rel="stylesheet" href="/tailwind.css" />
+     </head>
+     <body></body>
+   </html>
+   ```
+
+個別にコンパイルし、シングルページの html で `<link />` タグを使って導入。

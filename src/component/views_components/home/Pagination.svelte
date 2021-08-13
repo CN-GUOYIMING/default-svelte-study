@@ -13,17 +13,20 @@
       currentPage + 1 < pageNumbers ? currentPage + 1 : pageNumbers)
 </script>
 
-<article class="main-container" {style}>
-  <button type="button" on:click={handlePrevious}>{'<'} </button>
+<article class="main-container text-center" {style}>
+  <button type="button" on:click={handlePrevious} class="inline-block"
+    >{'<'}
+  </button>
   <span class="current-page">{currentPage}</span>
-  <button type="button" on:click={handleNext}>{'>'} </button>
+  <button type="button" on:click={handleNext} class="inline-block"
+    >{'>'}
+  </button>
 </article>
 
 <style>
   .main-container {
     align-self: center;
     display: flex;
-    margin-top: 20px;
   }
   .current-page {
     border-bottom: 1px solid orangered;

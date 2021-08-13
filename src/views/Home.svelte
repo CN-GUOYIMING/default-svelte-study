@@ -1,6 +1,8 @@
 <script lang="ts">
   // Dependencies
   import { onMount } from 'svelte'
+  import ChartBar from '../component/common/Chart/ChartBar.svelte'
+  // Stores
   import {
     DEFAULT_PAGE,
     ONE_PAGE_LINES,
@@ -59,9 +61,15 @@
   }
 </script>
 
-<main id="main-container" class="p-5 h-full bg-gray-200">
+<main id="main-container" class="flex flex-col p-5 h-full bg-gray-200">
   <!-- フィルター -->
   <Filter on:filter={handleFilter} />
+
+  <!-- グラフ -->
+  <div class="mt-7">
+    <ChartBar />
+  </div>
+
   <!-- 表示リスト -->
   <ShowList bind:pageSlices {currentPage} />
 
@@ -69,7 +77,7 @@
   <Pagination
     pageNumbers={pageSlices.length}
     bind:currentPage
-    style={'margin-top: 30px;'}
+    style="margin: 30px 0 0;"
   />
 
   <!-- ボタン -->

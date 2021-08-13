@@ -1,45 +1,39 @@
 <script lang="ts">
-  import Card from './HomeCard.svelte'
   import type { Food } from '../../../../types/views_types/home'
+  import Card from './HomeCard.svelte'
+  import Input from '../../common/Input/Input.svelte'
 
-  export let pageSlices: Array<Array<Food>>
+  // Props
+  export let pageSlices: Food[][]
   export let currentPage: number
+
+  // Styles
+  const ceil = 'px-5 py-1 border border-l-0 border-t-0 border-gray-500'
 </script>
 
-<Card title="表示リスト" containerStyle="margin-top: 30px;">
-  <div class="table table-striped">
-    <thead class="temporary">
-      <tr style="display: flex;">
-        <th style="flex: 1;">大分類コード</th>
-        <th style="flex: 1;">大分類名</th>
-        <th style="flex: 1;">〇〇フラグ</th>
+<Card title="表示リスト" contentClass="flex">
+  <table class=" flex-1 border-l border-t border-gray-500">
+    <thead>
+      <tr class="h-14">
+        <th class={ceil}>大分類コード</th>
+        <th class={ceil}>大分類名</th>
+        <th class={ceil}>〇〇フラグ</th>
       </tr>
     </thead>
 
-    <tbody class="temporary">
+    <tbody>
       {#if pageSlices.length > 0}
-        {#each pageSlices[currentPage - 1] as item (item.code)}
-          <tr style="display: flex;">
-            <td style="flex: 1;">{item.code}</td>
-            <td style="flex: 1;">{item.name}</td>
+        {#each pageSlices[currentPage - 1] as item, index (item.code)}
+          <tr class="h-14">
+            <td class={`${ceil} text-center`}>{item.code}</td>
+            <td class={`${ceil} text-center`}>{item.name}</td>
 
-            <td style="flex: 1;">
-              <input type="text" bind:value={item.flag} />
+            <td class={`${ceil}`}>
+              <Input bind:value={item.flag} containerClass="w-full" />
             </td>
           </tr>
         {/each}
       {/if}
     </tbody>
-  </div>
+  </table>
 </Card>
-
-<style>
-  input {
-    width: 70px;
-  }
-
-  .temporary {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
