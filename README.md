@@ -61,17 +61,17 @@ npm install svelte-spa-router
 
 ## Tailwindcss
 
-### Tailwindcss のダウンロード
+二種類の導入方法が存在する。
+
+### PostCSS のプラグインとして Tailwindcss を導入
+
+#### Tailwindcss の依存をダウンロード
 
 ```shell
 npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 ```
 
-### Tailwindcss の導入方法
-
-二種類存在する。
-
-#### Tailwindcss の導入方法一
+#### Tailwindcss を設置する
 
 rollup.config.js（ webpack と似たパッキングツール） ファイル内に tailwind を設置する。  
 『[How to Use Tailwind on a Svelte Site](https://css-tricks.com/how-to-use-tailwind-on-a-svelte-site/)』で詳細を確認できる。
@@ -111,7 +111,7 @@ rollup.config.js（ webpack と似たパッキングツール） ファイル内
 
 ---
 
-#### Tailwindcss の導入方法二
+### Tailwind CLI で Tailwindcss を導入する
 
 『[tailwindcss document](https://tailwindcss.com/docs/installation#using-tailwind-cli)』で詳細を確認できる。
 
