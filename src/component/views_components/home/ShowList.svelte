@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Food } from '../../../../types/views_types/home'
+  import type { Food } from '../../../types/views_types/home'
   import Card from './HomeCard.svelte'
   import Input from '../../common/Input/Input.svelte'
 

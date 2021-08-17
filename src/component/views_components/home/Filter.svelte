@@ -6,7 +6,7 @@
     Food,
     IdRange,
     FilterOptions,
-  } from '../../../../types/views_types/home'
+  } from '../../../types/views_types/home'
   // Store
   import { dataList, isClearTerms } from '../../../store'
   // Components
@@ -14,11 +14,6 @@
   import Input from '../../common/Input/Input.svelte'
 
   const dispatch: (type: string, detail: any) => void = createEventDispatcher()
-
-  // interface IdRange {
-  //   begin?: string
-  //   end?: string
-  // }
 
   let codeRange: IdRange = {}
   let targetFlag: string = ''

@@ -1,7 +1,6 @@
 <script lang="ts">
   // Dependencies
   import { onMount } from 'svelte'
-  import ChartBar from '../component/common/Chart/ChartBar.svelte'
   // Stores
   import {
     DEFAULT_PAGE,
@@ -11,6 +10,7 @@
   } from '../store'
   // Components
   import Filter from '../component/views_components/home/Filter.svelte'
+  import Chart from '../component/common/Chart/Chart.svelte'
   import ShowList from '../component/views_components/home/ShowList.svelte'
   import Pagination from '../component/views_components/home/Pagination.svelte'
   import Button from '../component/common/Button.svelte'
@@ -67,7 +67,7 @@
 
   <!-- グラフ -->
   <div class="mt-7">
-    <ChartBar />
+    <Chart />
   </div>
 
   <!-- 表示リスト -->
@@ -81,17 +81,8 @@
   />
 
   <!-- ボタン -->
-  <div class="button_container">
+  <div class="self-center flex justify-around w-2/4 ">
     <Button title="クリア" on:click={clearTerms} />
     <Button title="保存" on:click={updateData} />
   </div>
 </main>
-
-<style>
-  .button_container {
-    align-self: center;
-    display: flex;
-    justify-content: space-around;
-    width: 45%;
-  }
-</style>
